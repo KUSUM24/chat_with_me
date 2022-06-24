@@ -76,7 +76,7 @@ const SignOut = () => {
 };
 const ChatRoom = () => {
   const messageRef = firestore.collection("messages");
-  const query = messageRef.orderBy("createdAt").limit(25);
+  const query = messageRef.orderBy("createdAt");
 
   const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
@@ -91,6 +91,7 @@ const ChatRoom = () => {
       uid,
       photoURL,
     });
+    console.log(photoURL);
     setFormValue("");
     scroller.current.scrollIntoView({ behaviour: "smooth" });
   };
@@ -120,11 +121,7 @@ const ChatMessage = (props) => {
   return (
     <>
       <div className={`message ${messageClass}`}>
-        <img
-          src={
-            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
-          }
-        />
+        <img src={photoURL} alt="error" />
         <p>{text}</p>
       </div>
     </>
